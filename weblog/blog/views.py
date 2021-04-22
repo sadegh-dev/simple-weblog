@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Article
 
 def articles(request):
-    posts = Article.objects.all()
+    posts = Article.objects.filter(status='p')
     context = {
         'posts': posts,
     }
