@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for post in posts%}
-        {{ post.title }}
-    {% endfor %}
+    <ul class="card" >
+        {% for post in posts%}
+            <li class="card-body">
+                <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+            </li>  
+        {% endfor %}
+    </ul>
 {% endblock %}
