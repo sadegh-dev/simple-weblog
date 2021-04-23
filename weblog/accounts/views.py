@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import UserLoginForm
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 
 def user_login(request):
@@ -13,10 +14,15 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None :
                 login(request, user)
+                messages.success(request, 'Login is Success','success')
                 return redirect('blog:home')
+            else :
+                messages.error(request, 'wrong username or password','danger')
     else :
         form = UserLoginForm()
-        context = {
-            'form': form,
-        }
-        return render(request, 'accounts/login.html', context)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/login.html', context)
+
+
