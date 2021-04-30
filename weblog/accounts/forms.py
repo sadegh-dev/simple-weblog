@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 
 
 class UserLoginForm(forms.Form):
@@ -36,4 +37,11 @@ class UserRegistrationForm(forms.Form):
             'placeholder' : 'your password',
         }
     ))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = User.objects.filter(email = email)
+        if user.exists() :
+            raise forms.ValidationError('this email Already exists.')
+        return email
 
